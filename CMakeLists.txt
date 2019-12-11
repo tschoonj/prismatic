@@ -269,11 +269,18 @@ if(PRISMATIC_ENABLE_PYPRISMATIC)
         add_library(pyprismatic_core SHARED pyprismatic/core.cpp ${SOURCE_FILES})
     endif(PRISMATIC_ENABLE_GPU)
 
-    target_link_libraries(pyprismatic_core
+    if (WIN32)
+        target_link_libraries(pyprismatic_core
                     ${CMAKE_THREAD_LIBS_INIT}
                     ${FFTW_LIBRARIES}
                     ${HDF5_LIBRARIES}
                     ${PYTHON_LIBRARIES})
+    else (WIN32)
+        target_link_libraries(pyprismatic_core
+                    ${CMAKE_THREAD_LIBS_INIT}
+                    ${FFTW_LIBRARIES}
+                    ${HDF5_LIBRARIES})
+    endif (WIN32)
 
     set_target_properties(
     pyprismatic_core
